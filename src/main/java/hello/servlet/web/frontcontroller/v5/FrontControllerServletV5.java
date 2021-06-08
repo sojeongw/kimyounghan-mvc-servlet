@@ -27,7 +27,6 @@ public class FrontControllerServletV5  extends HttpServlet {
     public FrontControllerServletV5() {
         initHandlerMappingMap();
         initHandlerAdapters();
-
     }
 
     private void initHandlerMappingMap() {
@@ -53,7 +52,7 @@ public class FrontControllerServletV5  extends HttpServlet {
         // 2. 해당하는 컨트롤러를 가진 어댑터를 가져온다.
         MyHandlerAdapter adapter = getHandlerAdapter(handler);
 
-        // 3. 어댑터를 통해 컨트롤러에서 model view를 가져온다.
+        // 3. 어댑터를 통해 컨트롤러를 호출하고 model view를 가져온다.
         ModelView modelView = adapter.handle(request, response, handler);
 
         String viewName = modelView.getViewName();

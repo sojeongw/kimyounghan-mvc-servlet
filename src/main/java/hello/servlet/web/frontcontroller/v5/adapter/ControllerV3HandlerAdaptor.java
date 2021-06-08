@@ -17,7 +17,6 @@ public class ControllerV3HandlerAdaptor implements MyHandlerAdapter {
         // V3인지 확인한다.
         return handler instanceof ControllerV3;
     }
-
     @Override
     public ModelView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
         // support()로 이미 V3인 것을 확인했기 때문에 캐스팅할 수 있다.
