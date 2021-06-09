@@ -5,7 +5,11 @@ import hello.servlet.web.frontcontroller.MyView;
 import hello.servlet.web.frontcontroller.v3.controller.MemberFormControllerV3;
 import hello.servlet.web.frontcontroller.v3.controller.MemberListControllerV3;
 import hello.servlet.web.frontcontroller.v3.controller.MemberSaveControllerV3;
+import hello.servlet.web.frontcontroller.v4.controller.MemberFormControllerV4;
+import hello.servlet.web.frontcontroller.v4.controller.MemberListControllerV4;
+import hello.servlet.web.frontcontroller.v4.controller.MemberSaveControllerV4;
 import hello.servlet.web.frontcontroller.v5.adapter.ControllerV3HandlerAdaptor;
+import hello.servlet.web.frontcontroller.v5.adapter.ControllerV4HandlerAdaptor;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,15 +37,21 @@ public class FrontControllerServletV5  extends HttpServlet {
         handlerMappingMap.put("/front-controller/v5/v3/members/new-form", new MemberFormControllerV3());
         handlerMappingMap.put("/front-controller/v5/v3/members/save", new MemberSaveControllerV3());
         handlerMappingMap.put("/front-controller/v5/v3/members", new MemberListControllerV3());
+
+        // V4를 추가한다.
+        handlerMappingMap.put("/front-controller/v5/v4/members/new-form", new MemberFormControllerV4());
+        handlerMappingMap.put("/front-controller/v5/v4/members/save", new MemberSaveControllerV4());
+        handlerMappingMap.put("/front-controller/v5/v4/members", new MemberListControllerV4());
     }
 
     private void initHandlerAdapters() {
         handlerAdapters.add(new ControllerV3HandlerAdaptor());
+        handlerAdapters.add(new ControllerV4HandlerAdaptor());
     }
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. 핸들러를 찾아온다.
+        // 1. 매핑된 핸들러가 뭔지 일단 확인한다.
         Object handler = getHandler(request);
 
         if(handler == null) {
@@ -49,7 +59,7 @@ public class FrontControllerServletV5  extends HttpServlet {
             return;
         }
 
-        // 2. 해당하는 컨트롤러를 가진 어댑터를 가져온다.
+        // 2. 핸들러 어댑터 목록에서 해당 핸들러의 어댑터를 가져온다.
         MyHandlerAdapter adapter = getHandlerAdapter(handler);
 
         // 3. 어댑터를 통해 컨트롤러를 호출하고 model view를 가져온다.
