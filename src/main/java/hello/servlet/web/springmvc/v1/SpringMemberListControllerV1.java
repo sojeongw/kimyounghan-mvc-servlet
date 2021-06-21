@@ -9,13 +9,12 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
+@RequestMapping("/springmvc/v1/members")
 public class SpringMemberListControllerV1 {
 
     private final MemberRepository memberRepository = MemberRepository.getInstance();
 
-    @RequestMapping("/springmvc/v1/members")
     public ModelAndView process() {
-        System.out.println("hey");
         List<Member> members = memberRepository.findAll();
         ModelAndView modelView = new ModelAndView("members");
 
