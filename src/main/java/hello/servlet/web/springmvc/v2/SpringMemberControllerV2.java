@@ -11,17 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
-@RequestMapping("/springmvc/v2")
+@RequestMapping("/springmvc/v2/members")
 public class SpringMemberControllerV2 {
 
     private final MemberRepository memberRepository = MemberRepository.getInstance();
 
-    @RequestMapping("/members/new-form")
+    @RequestMapping("/new-form")
     public ModelAndView newForm() {
         return new ModelAndView("new-form");
     }
 
-    @RequestMapping("/members/save")
+    @RequestMapping("/save")
     public ModelAndView save(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter("username");
         int age = Integer.parseInt(request.getParameter("age"));
@@ -35,7 +35,7 @@ public class SpringMemberControllerV2 {
         return modelView;
     }
 
-    @RequestMapping("/members")
+    @RequestMapping
     public ModelAndView members() {
         List<Member> members = memberRepository.findAll();
         ModelAndView modelView = new ModelAndView("members");
